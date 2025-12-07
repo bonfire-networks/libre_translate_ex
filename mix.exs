@@ -48,7 +48,7 @@ defmodule LibreTranslate.MixProject do
       {:req, "~> 0.5.0"},
 
       # Documentation
-      {:ex_doc, "~> 0.34", only: :dev, runtime: false},
+      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
 
       # Development & testing
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
