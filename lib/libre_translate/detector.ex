@@ -38,14 +38,14 @@ defmodule LibreTranslate.Detector do
       {:ok, [%{"confidence" => 95.0, "language" => "en"}]}
 
   """
-  @spec detect(String.t()) :: {:ok, list(map())} | {:error, String.t()}
-  def detect(text) when is_binary(text) do
-    body = HTTPHelper.build_form_body(%{q: text})
+  @spec detect(String.t(), Keyword.t()) :: {:ok, list(map())} | {:error, String.t()}
+  def detect(text, opts \\ []) when is_binary(text) do
+    body = HTTPHelper.build_form_body(%{q: text}, opts)
 
     {_request, response} =
       [
         method: :post,
-        url: LibreTranslate.base_url() <> "/detect",
+        url: LibreTranslate.base_url(opts) <> "/detect",
         headers: HTTPHelper.required_request_headers(),
         body: body
       ]

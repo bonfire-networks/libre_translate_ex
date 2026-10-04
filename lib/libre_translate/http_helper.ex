@@ -20,16 +20,16 @@ defmodule LibreTranslate.HTTPHelper do
 
   Adds the API key if configured.
   """
-  @spec build_form_body(map()) :: String.t()
-  def build_form_body(params) do
+  @spec build_form_body(map(), Keyword.t()) :: String.t()
+  def build_form_body(params, opts \\ []) do
     params
-    |> maybe_add_api_key()
+    |> maybe_add_api_key(opts)
     |> Map.reject(fn {_key, val} -> is_nil(val) end)
     |> URI.encode_query()
   end
 
-  defp maybe_add_api_key(params) do
-    case LibreTranslate.get_api_key() do
+  defp maybe_add_api_key(params, opts) do
+    case LibreTranslate.get_api_key(opts) do
       nil -> params
       key -> Map.put(params, :api_key, key)
     end

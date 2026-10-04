@@ -31,12 +31,12 @@ defmodule LibreTranslate.Translator.TranslateRequest do
       alternatives: Keyword.get(opts, :alternatives)
     }
 
-    body = HTTPHelper.build_form_body(params)
+    body = HTTPHelper.build_form_body(params, opts)
 
     {_request, response} =
       [
         method: :post,
-        url: LibreTranslate.base_url() <> "/translate",
+        url: LibreTranslate.base_url(opts) <> "/translate",
         headers: HTTPHelper.required_request_headers(),
         body: body
       ]

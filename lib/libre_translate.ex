@@ -32,8 +32,10 @@ defmodule LibreTranslate do
       nil
 
   """
-  @spec get_api_key() :: String.t() | nil
-  def get_api_key, do: Application.get_env(:libre_translate_ex, :api_key)
+  @spec get_api_key(Keyword.t()) :: String.t() | nil
+  # an `:api_key` option is for one request only, e.g. when each user can have their own
+  def get_api_key(opts \\ []),
+    do: opts[:api_key] || Application.get_env(:libre_translate_ex, :api_key)
 
   @doc """
   Set the API key in the application environment.
@@ -58,8 +60,10 @@ defmodule LibreTranslate do
       "https://libretranslate.com"
 
   """
-  @spec base_url() :: String.t()
-  def base_url, do: Application.get_env(:libre_translate_ex, :base_url, @default_base_url)
+  @spec base_url(Keyword.t()) :: String.t()
+  # a `:base_url` option is for one request only, e.g. when each user can have their own server
+  def base_url(opts \\ []),
+    do: opts[:base_url] || Application.get_env(:libre_translate_ex, :base_url, @default_base_url)
 
   @doc """
   Set the base URL in the application environment.

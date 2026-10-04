@@ -28,12 +28,12 @@ defmodule LibreTranslate.Health do
       {:ok, %{"status" => "ok"}}
 
   """
-  @spec check() :: {:ok, map()} | {:error, String.t()}
-  def check do
+  @spec check(Keyword.t()) :: {:ok, map()} | {:error, String.t()}
+  def check(opts \\ []) do
     {_request, response} =
       [
         method: :get,
-        url: LibreTranslate.base_url() <> "/health",
+        url: LibreTranslate.base_url(opts) <> "/health",
         headers: [{"Accept", "application/json"}]
       ]
       |> Request.new()
@@ -60,9 +60,9 @@ defmodule LibreTranslate.Health do
       false
 
   """
-  @spec healthy?() :: boolean()
-  def healthy? do
-    case check() do
+  @spec healthy?(Keyword.t()) :: boolean()
+  def healthy?(opts \\ []) do
+    case check(opts) do
       {:ok, %{"status" => "ok"}} -> true
       _ -> false
     end

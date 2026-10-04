@@ -30,12 +30,12 @@ defmodule LibreTranslate.Language do
        ]}
 
   """
-  @spec get_languages() :: {:ok, list(map())} | {:error, String.t()}
-  def get_languages do
+  @spec get_languages(Keyword.t()) :: {:ok, list(map())} | {:error, String.t()}
+  def get_languages(opts \\ []) do
     {_request, response} =
       [
         method: :get,
-        url: LibreTranslate.base_url() <> "/languages",
+        url: LibreTranslate.base_url(opts) <> "/languages",
         headers: [{"Accept", "application/json"}]
       ]
       |> Request.new()
